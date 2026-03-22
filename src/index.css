@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+@import "tailwindcss";
+
+:root {
+  --base-100: #f0f0f0;
+  --base-200: #d0d0d0;
+  --base-300: #929292;
+  --base-400: #1a1a1a;
+  --base-500: #2641aa;
+  --dissolve-color: #929292;
+  --page-padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: auto; }
+body { background-color: var(--base-400); color: var(--base-100); overflow-x: hidden; font-family: "Space Grotesk", sans-serif; }
+
+/* ── hide scrollbar ── */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* IE / old Edge */
+body {
+  -ms-overflow-style: none;
+}
+img { width: 100%; height: 100%; object-fit: cover; }
+a { text-decoration: none; color: inherit; }
+
+/* ── Page transition ── */
+.page-transition-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: none; }
+.page-transition-overlay svg { width: 100%; height: 100%; }
+.page-transition-overlay .overlay__path { fill: var(--base-300); stroke: none; }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 98svh;
+  color: var(--base-100);
+  overflow: hidden;
+}
+
+/* ── Marquee ── */
+
+/* Outer: full-bleed background, padding top+bottom = the "gap" around the strip */
+.marquee-outer {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--base-500);
+  padding: 66px 0;
+  overflow: hidden;
+  will-change: transform; /* parallax target */
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+/* Inner: the visible bordered strip */
+.marquee-inner {
+  border-top: 2px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  width: max-content;
+  padding: 20px 0px;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(4rem, 16vw, 10rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  user-select: none;
+}
+
+.marquee-sep {
+  font-size: 0.22em;
+  margin: 0 0.6em;
+  opacity: 0.4;
+  vertical-align: middle;
+  color: var(--base-200);
+}
+
+@media (max-width: 600px) {
+  .marquee-item {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+}
+
+/* ── Detail Section ── */
+.hero-detail-section {
+  background: var(--base-400);
+  padding: clamp(5rem, 10vw, 9rem) var(--page-padding);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: -240px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.hero-detail-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hero-detail-label span {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  color: var(--base-500);
+  border: 1px solid var(--base-500);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.hero-detail-text {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+.hero-detail-text p {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--base-200);
+  font-weight: 300;
+}
+
+.hero-detail-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detail-stat {
+  background: var(--base-400);
+  padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.2rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.detail-stat-num {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  line-height: 1;
+  color: var(--base-100);
+}
+
+.detail-stat-label {
+  font-family: "Space Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  color: var(--base-300);
+}
+
+@media (max-width: 900px) {
+  .hero-detail-text {
+    grid-template-columns: 1fr;
+  }
+  .hero-detail-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-detail-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .marquee-item {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+}
+
+/* ── Scroll hint ── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ── Menu overlay ── */
+.menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100svh; overflow: hidden; background-color: var(--base-400); color: var(--base-100); z-index: 99; will-change: clip-path; clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); border-top: 1px solid rgba(255,255,255,0.06); }
+
+.menu-link { position: relative; will-change: transform; overflow: hidden; }
+.menu-link a { position: relative; color: var(--base-100); text-transform: uppercase; text-decoration: none; font-family: "Big Shoulders Display", sans-serif; font-size: clamp(5rem, 9vw, 10rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.1rem; display: inline-block; overflow: hidden; transition: color 0.3s; }
+.menu-link:hover a { color: var(--base-500); }
+.menu-link a span:nth-child(2) { position: absolute; top: 0; left: 0; }
+.menu-link .char { position: relative; display: inline-block; will-change: transform; }
+.link-highlighter { position: absolute; bottom: 0; left: 0; width: 400px; height: 3px; background-color: var(--base-500); will-change: transform, width; }
+.split-line { display: block; position: relative; overflow: hidden; will-change: transform; }
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .menu-link a { font-size: 3.5rem; }
+}

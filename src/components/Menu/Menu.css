@@ -1,0 +1,113 @@
+/* Only things that GSAP/clip-path animations need — everything else is Tailwind in JSX */
+
+/* Toggle wrapper — needs overflow:hidden to mask sliding labels */
+.nav-toggle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  padding: 0 1.25rem;
+  overflow: hidden;
+  background-color: #c8a96e;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 5rem;
+}
+
+/* Both labels sit absolutely so only ONE is in the visible strip at a time */
+.open-label,
+.close-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: #1a1a1a;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.close-label {
+  top: 25%;
+  transform: translate(-50%, -50%);
+}
+
+/* open label: visible at rest */
+.open-label  { transform: translate(-50%, -50%); }
+/* close label: hidden below */
+.close-label { transform: translate(-50%, calc(-50% + 2.5rem)); }
+
+/* ── Mobile footer strip (hidden on desktop) ── */
+.menu-mobile-footer {
+  display: none;
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 clamp(1.5rem, 6vw, 3rem);
+}
+
+.menu-mobile-footer p,
+.menu-mobile-footer a {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: #929292;
+  text-decoration: none;
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .menu-link a { font-size: clamp(3rem, 8vw, 5rem); }
+}
+
+@media (max-width: 768px) {
+  /* Hide desktop info columns */
+  .menu-info-cols {
+    display: none !important;
+  }
+
+  /* Show mobile footer */
+  .menu-mobile-footer {
+    display: flex !important;
+  }
+
+  /* Stack nav links vertically & center */
+  .menu-links-mobile {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100vw !important;
+    left: 0 !important;
+    bottom: auto !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    padding: 0 clamp(1rem, 5vw, 2rem) !important;
+    gap: 0 !important;
+  }
+
+  .menu-links-mobile .menu-link {
+    text-align: center;
+  }
+
+  .menu-links-mobile .menu-link a {
+    font-size: clamp(2.8rem, 13vw, 4.5rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  /* Hide highlighter bar — useless on mobile */
+  .menu-links-mobile .link-highlighter {
+    display: none !important;
+  }
+}
