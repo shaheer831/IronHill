@@ -147,48 +147,45 @@ export function Hero({ lenis }: HeroProps) {
           </div>
         </div>
       </section>
-{/* ── MARQUEE — pinned to bottom, parallax on scroll ── */}
-        {/* Outer wrapper: padding-y + overflow hidden = clips the inner bordered strip */}
-        <div data-scroll data-scroll-section data-scroll-speed=".1" className="marquee-outer hero-animate" ref={marqueeWrapRef}>
-          {/* Inner strip: top + bottom border, big height */}
-          <div className="marquee-inner">
-            <div className="marquee-track" ref={trackRef}>
-              {MARQUEE_ITEMS.map((item, i) => (
-                <span key={i} className="marquee-item marquee-original">
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      {/* ── DETAIL SECTION ── */}
-      <section data-scroll data-scroll-section data-scroll-speed=".2" className="hero-detail-section" ref={detailRef}>
-        <div className="hero-detail-inner">
-          <div className="hero-detail-label detail-animate">
-            <span>Our philosophy</span>
-          </div>
-          <div className="hero-detail-text">
-            <p className="detail-animate">
-              We don't build structures. We build permanence — the kind that endures long after trends shift and the people who commissioned the work have retired. Every project is conceived with one premise: what we erect today must be worthy of the skyline it joins and the decades of use it will reliably serve. From groundbreaking to grand opening, every person who touches our work brings full skill, full attention, and full pride to the job.
-            </p>
-            <p className="detail-animate">
-              Since 1998, the nation's most demanding clients — developers with complex timelines, government agencies with zero tolerance for delays — have trusted us to deliver. Not once have we handed over a project late. Not once have we asked a client to absorb an unexpected overrun. That record is the product of obsessive planning and disciplined execution — structures that don't just meet the brief but honour it.
-            </p>
-          </div>
-          <div className="hero-detail-stats">
-            {[
-              { num: "500+", label: "Projects completed" },
-              { num: "26", label: "Years of excellence" },
-              { num: "0", label: "Missed deadlines" },
-              { num: "100%", label: "Client retention" },
-            ].map(({ num, label }) => (
-              <div key={label} className="detail-stat detail-animate">
-                <span className="detail-stat-num">{num}</span>
-                <span className="detail-stat-label">{label}</span>
-              </div>
+      {/* ── MARQUEE — pinned to bottom, parallax on scroll ── */}
+      {/* Outer wrapper: padding-y + overflow hidden = clips the inner bordered strip */}
+      <div data-scroll data-scroll-section data-scroll-speed=".1" className="marquee-outer hero-animate" ref={marqueeWrapRef}>
+        {/* Inner strip: top + bottom border, big height */}
+        <div className="marquee-inner">
+          <div className="marquee-track" ref={trackRef}>
+            {MARQUEE_ITEMS.map((item, i) => (
+              <span key={i} className="marquee-item marquee-original">
+                {item}
+              </span>
             ))}
           </div>
         </div>
+      </div>
+      {/* ── DETAIL SECTION ── */}
+      <section
+        data-scroll
+        data-scroll-section
+        data-scroll-speed=".2"
+        ref={detailRef}
+        className="hero-detail-section flex flex-col items-center justify-center text-center gap-12 px-4 md:px-10 lg:px-20 py-28 md:py-36 lg:py-44 bg-neutral-950 text-white"
+      >
+        <p className="text-3xl md:text-4xl lg:text-5xl leading- max-w-[90vw] text-neutral-200">
+          IronHill <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1587145679823-331021ad6864?q=80&w=2524&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div> is built on strength, precision, and a vision to shape spaces that last. We approach every project with a commitment to quality, ensuring that each structure reflects durability, efficiency, and thoughtful design. From residential builds    <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1734&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div> to large-scale commercial
+      
+          developments, our work stands as a testament to reliability and modern construction standards.
+        </p>
+
+        <p className="text-3xl md:text-4xl lg:text-5xl leading max-w-[90vw] text-neutral-200">
+          Our process combines experience with innovation, allowing us to deliver projects that meet the evolving needs of communities <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?q=80&w=1746&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div> and businesses. We focus on creating environments that are not only functional but also enduring, built with purpose and attention to every detail. At IronHill, construction is more than building — it is about creating a foundation <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1586726370832-3440a511e479?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          </div> for the future.
+        </p>
       </section>
     </>
   );

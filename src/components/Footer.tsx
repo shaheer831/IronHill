@@ -25,17 +25,17 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   const navLinks = [
-    { label: "Home",     href: "/" },
+    { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
     { label: "Services", href: "/services" },
-    { label: "About",    href: "/about" },
-    { label: "Contact",  href: "/contact" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
   ];
 
   const socials = [
-    { label: "LinkedIn",  href: "#" },
+    { label: "LinkedIn", href: "#" },
     { label: "Instagram", href: "#" },
-    { label: "Behance",   href: "#" },
+    { label: "Behance", href: "#" },
   ];
 
   return (
@@ -246,16 +246,15 @@ export function Footer() {
         {/* ── Bottom bar spans full grid ── */}
         <div
           style={{
-            gridColumn: "1 / -1",
             display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
             alignItems: "center",
-            gap: "0.75rem",
+            justifyContent: "center"
           }}
         >
-          <p style={monoSm}>© {year} Ironhill Construction. All rights reserved.</p>
-          <p style={monoSm}>License No. NYCB-2024-7741</p>
+          <span className="text-center flex flex-col gap-1">
+            <p style={monoSm}>© {year} Ironhill Construction. All rights reserved.</p>
+            <p style={monoSm}>License No. NYCB-2024-7741</p>
+          </span>
         </div>
       </div>
     </footer>
