@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { SpotLight } from "three";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -161,7 +162,7 @@ export function Hero({ lenis }: HeroProps) {
           </div>
         </div>
       </div>
-      {/* ── DETAIL SECTION ── */}
+      {/* ── Rest Of The Page ── */}
       <section
         data-scroll
         data-scroll-section
@@ -186,6 +187,7 @@ export function Hero({ lenis }: HeroProps) {
             <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1586726370832-3440a511e479?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
           </div> for the future.
         </p>
+        {/* <SpotLight /> */}
       </section>
     </>
   );
