@@ -1,0 +1,168 @@
+.vt-section {
+  position: relative;
+  width: 100%;
+  background: var(--base-400);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.vt-inner {
+  position: relative;
+  width: 100%;
+  min-height: clamp(420px, 65vh, 700px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 4vw, 3rem);
+  padding: clamp(5rem, 10vw, 8rem) var(--page-padding);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Background image with overlay ── */
+.vt-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vt-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vt-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0.72) 0%,
+    rgba(26, 26, 26, 0.55) 50%,
+    rgba(26, 26, 26, 0.78) 100%
+  );
+  transition: background 0.5s ease;
+}
+
+
+
+.vt-inner:hover .vt-bg {
+  transform: scale(1.04);
+}
+
+/* ── Content ── */
+.vt-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  text-align: center;
+}
+
+.vt-tag {
+  font-family: "Space Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  color: white;
+  border: 1px solid var(--base-500);
+  background-color: var(--base-500);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.vt-title {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.5rem, 9vw, 10rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: -0.05rem;
+  color: var(--base-100);
+}
+
+.vt-sub {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.9rem, 1.6vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--base-200);
+  font-weight: 300;
+  max-width: 520px;
+}
+
+/* ── Play button ── */
+.vt-play-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 14px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+  color: var(--base-100);
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+}
+
+.vt-inner:hover .vt-play-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.04);
+}
+
+.vt-play-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--base-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+.vt-inner:hover .vt-play-icon {
+  background: #3554d4;
+}
+
+.vt-play-icon svg {
+  width: 12px;
+  height: 12px;
+  fill: #fff;
+  margin-left: 2px;
+}
+
+/* ── Corner coordinates decoration ── */
+.vt-coords {
+  position: absolute;
+  z-index: 1;
+  font-family: "Space Mono", monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.1rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+.vt-coords-tl { top: clamp(1rem, 2.5vw, 1.75rem); left: var(--page-padding); }
+.vt-coords-tr { top: clamp(1rem, 2.5vw, 1.75rem); right: var(--page-padding); text-align: right; }
+.vt-coords-bl { bottom: clamp(1rem, 2.5vw, 1.75rem); left: var(--page-padding); }
+.vt-coords-br { bottom: clamp(1rem, 2.5vw, 1.75rem); right: var(--page-padding); text-align: right; }
+
+/* ── Scroll-driven parallax ── */
+@media (max-width: 600px) {
+  .vt-coords-tr,
+  .vt-coords-bl { display: none; }
+}

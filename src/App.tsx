@@ -15,6 +15,7 @@ import News from "./pages/News";
 import Design from "./pages/Design";
 import Careers from "./pages/Careers";
 import "./App.css";
+import VirtualTour from "./pages/VirtualTour";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,6 +63,7 @@ function AppContent({ ready }: AppContentProps) {
           <Route path="/advisory" element={<Advisory />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/careers" element={<Careers />} />
+          <Route path="/virtual-tour" element={<VirtualTour />} />
         </Routes>
       </div>
     </>

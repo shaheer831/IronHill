@@ -1,0 +1,246 @@
+.testimonials {
+  position: relative;
+  width: 100%;
+  background: var(--base-400);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Scroll root: tall enough for the pin ── */
+.testimonials-scroll-root {
+  height: 550vh;
+  position: relative;
+}
+
+/* ── Sticky shell ── */
+.testimonials-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.testimonials-header {
+  padding: clamp(2.5rem, 5vw, 4rem) var(--page-padding)
+    clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.testimonials-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.testimonials-tag {
+  font-family: "Space Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  color: white;
+  border: 1px solid var(--base-500);
+  background-color: var(--base-500);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.testimonials-title {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.88;
+  text-transform: uppercase;
+  letter-spacing: -0.05rem;
+  color: var(--base-100);
+}
+
+.testimonials-count {
+  font-family: "Space Mono", monospace;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  color: var(--base-300);
+  padding-bottom: 0.4rem;
+}
+
+/* ── Cards stage ── */
+.testimonials-stage {
+  flex: 1;
+  position: relative;
+  display: flex;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  align-items: stretch;
+  padding: clamp(1.25rem, 2.5vw, 2rem) var(--page-padding);
+  overflow: hidden;
+}
+
+/* ── Each slot ── */
+.t-slot {
+  flex: 1;
+  position: relative;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* big initial letter */
+.t-initial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(7rem, 18vw, 14rem);
+  color: rgba(38, 65, 170, 0.25);
+  user-select: none;
+  will-change: transform;
+}
+
+/* ── Card ── */
+.t-card {
+  position: absolute;
+  inset: -1px;
+  background: var(--base-100);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  will-change: transform;
+  top: 50%;
+  left: 50%;
+}
+
+.t-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.t-quote-mark {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--base-500);
+  margin-bottom: -0.5rem;
+}
+
+.t-quote-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--base-400);
+  font-weight: 400;
+}
+
+.t-card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(26, 26, 26, 0.1);
+}
+
+.t-avatar {
+  width: clamp(36px, 5vw, 48px);
+  height: clamp(36px, 5vw, 48px);
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--base-300);
+}
+
+.t-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.t-client-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.t-client-name {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  text-transform: uppercase;
+  color: var(--base-400);
+  line-height: 1;
+  letter-spacing: -0.02rem;
+}
+
+.t-client-meta {
+  font-family: "Space Mono", monospace;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  color: var(--base-300);
+}
+
+.t-project-tag {
+  margin-left: auto;
+  font-family: "Space Mono", monospace;
+  font-size: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: white;
+  border: 1px solid var(--base-500);
+  background-color: var(--base-500);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* ── Mobile: static stacked ── */
+@media (max-width: 768px) {
+  .testimonials-scroll-root {
+    height: auto;
+  }
+  .testimonials-sticky {
+    position: static;
+    height: auto;
+  }
+  .testimonials-stage {
+    flex-direction: column;
+    align-items: center;
+    overflow: visible;
+  }
+  .t-slot {
+    width: 100%;
+    max-width: 480px;
+    min-height: 300px;
+    border: none;
+    align-self: center;
+  }
+  .t-initial {
+    display: none;
+  }
+  .t-card {
+    position: static;
+    transform: none !important;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    inset: unset;
+  }
+  .testimonials-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

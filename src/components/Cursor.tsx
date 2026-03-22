@@ -21,7 +21,7 @@ export default function Cursor() {
     const hover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const isHover = !!target.closest(
-        "a, button, [data-hover], .btn-primary, .btn-outline, .clickable, [role='button'], input[type='submit'], input[type='button'], select, summary"
+        ".vt-bg"
       );
       dotRef.current?.classList.toggle("hovered", isHover);
     };
