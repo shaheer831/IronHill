@@ -11,9 +11,21 @@
   --page-padding: clamp(1.5rem, 4vw, 3.5rem);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: auto; }
-body { background-color: var(--base-400); color: var(--base-100); overflow-x: hidden; font-family: "Space Grotesk", sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+html {
+  scroll-behavior: auto;
+}
+body {
+  background-color: var(--base-400);
+  color: var(--base-100);
+  overflow-x: hidden;
+  font-family: "Space Grotesk", sans-serif;
+}
 
 /* ── hide scrollbar ── */
 
@@ -31,19 +43,40 @@ html {
 body {
   -ms-overflow-style: none;
 }
-img { width: 100%; height: 100%; object-fit: cover; }
-a { text-decoration: none; color: inherit; }
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
 /* ── Page transition ── */
-.page-transition-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: none; }
-.page-transition-overlay svg { width: 100%; height: 100%; }
-.page-transition-overlay .overlay__path { fill: var(--base-300); stroke: none; }
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  pointer-events: none;
+}
+.page-transition-overlay svg {
+  width: 100%;
+  height: 100%;
+}
+.page-transition-overlay .overlay__path {
+  fill: var(--base-300);
+  stroke: none;
+}
 
 /* ── Hero ── */
 .hero {
   position: relative;
   width: 100%;
-  height: 98svh;
+  height: 100svh;
   color: var(--base-100);
   overflow: hidden;
 }
@@ -105,14 +138,17 @@ a { text-decoration: none; color: inherit; }
   .marquee-item {
     font-size: clamp(3rem, 14vw, 5rem);
   }
+  .marquee-outer {
+    padding: 33px 0;
+  }
 }
 
 /* ── Detail Section ── */
 .hero-detail-section {
   background: var(--base-400);
-  padding: clamp(5rem, 10vw, 9rem) var(--page-padding);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  margin-top: -240px;
+  padding: clamp(5rem, 10vw, 5.5rem) var(--page-padding);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: -20px;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
@@ -155,8 +191,8 @@ a { text-decoration: none; color: inherit; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -201,12 +237,20 @@ a { text-decoration: none; color: inherit; }
   .marquee-item {
     font-size: clamp(2.8rem, 12vw, 4rem);
   }
+  .hero-detail-section {
+    padding-top: 35px;
+  }
 }
 
 /* ── Scroll hint ── */
 @keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50%       { transform: translateX(-50%) translateY(8px); }
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
 }
 .hero-scroll-hint {
   position: absolute;
@@ -221,17 +265,72 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ── Menu overlay ── */
-.menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100svh; overflow: hidden; background-color: var(--base-400); color: var(--base-100); z-index: 99; will-change: clip-path; clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%); border-top: 1px solid rgba(255,255,255,0.06); }
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  background-color: var(--base-400);
+  color: var(--base-100);
+  z-index: 99;
+  will-change: clip-path;
+  clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
 
-.menu-link { position: relative; will-change: transform; overflow: hidden; }
-.menu-link a { position: relative; color: var(--base-100); text-transform: uppercase; text-decoration: none; font-family: "Big Shoulders Display", sans-serif; font-size: clamp(5rem, 9vw, 10rem); font-weight: 900; line-height: 0.9; letter-spacing: -0.1rem; display: inline-block; overflow: hidden; transition: color 0.3s; }
-.menu-link:hover a { color: var(--base-500); }
-.menu-link a span:nth-child(2) { position: absolute; top: 0; left: 0; }
-.menu-link .char { position: relative; display: inline-block; will-change: transform; }
-.link-highlighter { position: absolute; bottom: 0; left: 0; width: 400px; height: 3px; background-color: var(--base-500); will-change: transform, width; }
-.split-line { display: block; position: relative; overflow: hidden; will-change: transform; }
+.menu-link {
+  position: relative;
+  will-change: transform;
+  overflow: hidden;
+}
+.menu-link a {
+  position: relative;
+  color: var(--base-100);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-size: clamp(5rem, 9vw, 10rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.1rem;
+  display: inline-block;
+  overflow: hidden;
+  transition: color 0.3s;
+}
+.menu-link:hover a {
+  color: var(--base-500);
+}
+.menu-link a span:nth-child(2) {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.menu-link .char {
+  position: relative;
+  display: inline-block;
+  will-change: transform;
+}
+.link-highlighter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 3px;
+  background-color: var(--base-500);
+  will-change: transform, width;
+}
+.split-line {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
 
 /* ── Responsive ── */
 @media (max-width: 1000px) {
-  .menu-link a { font-size: 3.5rem; }
+  .menu-link a {
+    font-size: 3.5rem;
+  }
 }

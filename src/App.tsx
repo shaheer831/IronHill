@@ -9,7 +9,6 @@ import { HomePage } from "./pages/HomePage";
 import "./App.css";
 
 gsap.registerPlugin(ScrollTrigger);
-  import LocomotiveScroll from 'locomotive-scroll';
 import Studio from "./pages/Studio";
 import Work from "./pages/Work";
 import Contact from "./pages/Contact";
@@ -20,7 +19,6 @@ import Careers from "./pages/Careers";
 
 function AppContent() {
 
-const locomotiveScroll = new LocomotiveScroll();
   const pageRef = useRef<HTMLDivElement>(null);
   const [lenis, setLenis] = useState<Lenis | null>(null);
   const location = useLocation();

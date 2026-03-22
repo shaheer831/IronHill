@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
-import { SpotLight } from "three";
-
 gsap.registerPlugin(ScrollTrigger);
 
 interface HeroProps {
@@ -27,31 +25,64 @@ export function Hero({ lenis }: HeroProps) {
   const currentX = useRef(0);
   const baseSpeed = useRef(1.6);
 
-  // Entry animations
+  // ── Lenis → ScrollTrigger sync ───────────────────────────────────────────
+  useEffect(() => {
+    if (!lenis) return;
+    const onScroll = () => ScrollTrigger.update();
+    lenis.on("scroll", onScroll);
+    return () => lenis.off("scroll", onScroll);
+  }, [lenis]);
+
+  // ── Detail section scroll speed 1.2x ─────────────────────────────────────
+  useEffect(() => {
+    if (!detailRef.current) return;
+
+    const section = detailRef.current;
+    const multiplier = 1.2;
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top bottom",
+      end: "bottom top",
+      onUpdate: (self) => {
+        const offset = self.start; // px from page top where section begins
+        const scrolled = self.scroll() - offset;
+        gsap.set(section, { y: scrolled * (multiplier - 1) * -1 });
+      },
+    });
+
+    return () => trigger.kill();
+  }, []);
+
+  // ── Entry animations ──────────────────────────────────────────────────────
   useEffect(() => {
     if (!heroRef.current) return;
     gsap.fromTo(
       heroRef.current.querySelectorAll(".hero-animate"),
       { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.1, stagger: 0.13, ease: "power3.out", delay: 0.15 }
+      {
+        y: 0, opacity: 1,
+        duration: 1.1,
+        stagger: 0.13,
+        ease: "power3.out",
+        delay: 0.15,
+      }
     );
   }, []);
-  // Marquee RAF loop — constant speed
+
+  // ── Marquee RAF loop ──────────────────────────────────────────────────────
   useEffect(() => {
     if (!trackRef.current) return;
-
     let animFrame: number;
 
     const cloneContent = () => {
       const track = trackRef.current!;
-      const existing = track.querySelectorAll(".marquee-clone");
-      existing.forEach((el) => el.remove());
-      const originalItems = Array.from(track.querySelectorAll(".marquee-original"));
-      // enough copies to fill 4× viewport
-      const singleW = originalItems.reduce((acc, el) => acc + (el as HTMLElement).offsetWidth, 0);
+      track.querySelectorAll(".marquee-clone").forEach((el) => el.remove());
+      const originals = Array.from(track.querySelectorAll(".marquee-original"));
+      const singleW = originals.reduce((acc, el) => acc + (el as HTMLElement).offsetWidth, 0);
       const needed = Math.ceil((window.innerWidth * 4) / singleW) + 1;
       for (let i = 0; i < needed; i++) {
-        originalItems.forEach((item) => {
+        originals.forEach((item) => {
           const clone = item.cloneNode(true) as HTMLElement;
           clone.classList.remove("marquee-original");
           clone.classList.add("marquee-clone");
@@ -60,23 +91,18 @@ export function Hero({ lenis }: HeroProps) {
       }
     };
 
-    // Wait a frame so fonts are measured correctly
     const init = requestAnimationFrame(() => {
       cloneContent();
 
       const tick = () => {
         currentX.current -= baseSpeed.current;
-
         const track = trackRef.current!;
         const originals = track.querySelectorAll(".marquee-original");
         if (!originals.length) { animFrame = requestAnimationFrame(tick); return; }
 
         let totalW = 0;
         originals.forEach((el) => { totalW += (el as HTMLElement).offsetWidth; });
-
-        if (Math.abs(currentX.current) >= totalW) {
-          currentX.current += totalW;
-        }
+        if (Math.abs(currentX.current) >= totalW) currentX.current += totalW;
 
         gsap.set(track, { x: currentX.current });
         animFrame = requestAnimationFrame(tick);
@@ -94,8 +120,11 @@ export function Hero({ lenis }: HeroProps) {
   return (
     <>
       {/* ── HERO ── */}
-      <section data-scroll data-scroll-section data-scroll-speed="-.3" className="hero" ref={heroRef}>
-        {/* Background */}
+      <section
+        className="hero"
+        ref={heroRef}
+        style={{ willChange: "transform", overflow: "hidden" }}
+      >
         <div className="absolute inset-0 w-full h-full">
           <img src="/hero-img.jpg" alt="Ironhill construction project" />
           <div
@@ -107,7 +136,6 @@ export function Hero({ lenis }: HeroProps) {
           />
         </div>
 
-        {/* Centered hero content */}
         <div className="absolute inset-x-0 top-0 h-full flex flex-col justify-center items-center gap-2 text-center px-6">
           <h1
             className="uppercase leading-[0.9] tracking-[-0.1rem] hero-animate"
@@ -148,10 +176,13 @@ export function Hero({ lenis }: HeroProps) {
           </div>
         </div>
       </section>
-      {/* ── MARQUEE — pinned to bottom, parallax on scroll ── */}
-      {/* Outer wrapper: padding-y + overflow hidden = clips the inner bordered strip */}
-      <div data-scroll data-scroll-section data-scroll-speed=".1" className="marquee-outer hero-animate" ref={marqueeWrapRef}>
-        {/* Inner strip: top + bottom border, big height */}
+
+      {/* ── MARQUEE ── */}
+      <div
+        className="marquee-outer hero-animate"
+        ref={marqueeWrapRef}
+        style={{ willChange: "transform" }}
+      >
         <div className="marquee-inner">
           <div className="marquee-track" ref={trackRef}>
             {MARQUEE_ITEMS.map((item, i) => (
@@ -162,32 +193,60 @@ export function Hero({ lenis }: HeroProps) {
           </div>
         </div>
       </div>
-      {/* ── Rest Of The Page ── */}
+
+      {/* ── Detail Section — text only, no Spotlight inside ── */}
       <section
-        data-scroll
-        data-scroll-section
-        data-scroll-speed=".2"
         ref={detailRef}
-        className="hero-detail-section flex flex-col items-center justify-center text-center gap-12 px-4 md:px-10 lg:px-20 py-28 md:py-36 lg:py-44 bg-neutral-950 text-white"
+        style={{ willChange: "transform" }}
+        className="hero-detail-section flex flex-col items-center justify-center text-center gap-4 md:gap-7 lg:gap-12 px-4 md:px-10 lg:px-20 py-28 md:py-36 lg:py-44 bg-neutral-950 text-white"
       >
-        <p className="text-3xl md:text-4xl lg:text-5xl leading- max-w-[90vw] text-neutral-200">
-          IronHill <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
-            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1587145679823-331021ad6864?q=80&w=2524&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-          </div> is built on strength, precision, and a vision to shape spaces that last. We approach every project with a commitment to quality, ensuring that each structure reflects durability, efficiency, and thoughtful design. From residential builds    <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
-            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1734&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-          </div> to large-scale commercial
-      
-          developments, our work stands as a testament to reliability and modern construction standards.
+        <p className="text-xl md:text-4xl lg:text-5xl leading- max-w-[90vw] text-neutral-200">
+          IronHill{" "}
+          <div className="h-7 w-16 lg:h-12 lg:w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img
+              className="hover:scale-125 duration-500 transition-all cursor-pointer"
+              src="https://images.unsplash.com/photo-1587145679823-331021ad6864?q=80&w=2524&auto=format&fit=crop"
+              alt=""
+            />
+          </div>{" "}
+          is built on strength, precision, and a vision to shape spaces that last. We
+          approach every project with a commitment to quality, ensuring that each
+          structure reflects durability, efficiency, and thoughtful design. From
+          residential builds{" "}
+          <div className="h-7 w-16 lg:h-12 lg:w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img
+              className="hover:scale-125 duration-500 transition-all cursor-pointer"
+              src="https://images.unsplash.com/photo-1448630360428-65456885c650?q=80&w=1734&auto=format&fit=crop"
+              alt=""
+            />
+          </div>{" "}
+          to large-scale commercial developments, our work stands as a testament to
+          reliability and modern construction standards.
         </p>
 
-        <p className="text-3xl md:text-4xl lg:text-5xl leading max-w-[90vw] text-neutral-200">
-          Our process combines experience with innovation, allowing us to deliver projects that meet the evolving needs of communities <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
-            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?q=80&w=1746&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-          </div> and businesses. We focus on creating environments that are not only functional but also enduring, built with purpose and attention to every detail. At IronHill, construction is more than building — it is about creating a foundation <div className="h-12 w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
-            <img className="hover:scale-125 duration-500 transition-all cursor-pointer" src="https://images.unsplash.com/photo-1586726370832-3440a511e479?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-          </div> for the future.
+        <p className="text-xl md:text-4xl lg:text-5xl leading max-w-[90vw] text-neutral-200">
+          Our process combines experience with innovation, allowing us to deliver
+          projects that meet the evolving needs of communities{" "}
+          <div className="h-7 w-16 lg:h-12 lg:w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img
+              className="hover:scale-125 duration-500 transition-all cursor-pointer"
+              src="https://images.unsplash.com/photo-1502444330042-d1a1ddf9bb5b?q=80&w=1746&auto=format&fit=crop"
+              alt=""
+            />
+          </div>{" "}
+          and businesses. We focus on creating environments that are not only
+          functional but also enduring, built with purpose and attention to every
+          detail. At IronHill, construction is more than building — it is about
+          creating a foundation{" "}
+          <div className="h-7 w-16 lg:h-12 lg:w-24 rounded-full inline-block translate-y-[15%] overflow-hidden">
+            <img
+              className="hover:scale-125 duration-500 transition-all cursor-pointer"
+              src="https://images.unsplash.com/photo-1586726370832-3440a511e479?q=80&w=1740&auto=format&fit=crop"
+              alt=""
+            />
+          </div>{" "}
+          for the future.
         </p>
-        {/* <SpotLight /> */}
       </section>
     </>
   );
