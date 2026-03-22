@@ -1,0 +1,171 @@
+.spotlight {
+  position: relative;
+  width: 100%;
+  background-color: var(--base-400);
+  overflow: hidden;
+}
+
+/* ── Section label ── */
+.spotlight-label {
+  padding: clamp(3rem, 6vw, 5rem) var(--page-padding) clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.spotlight-label span {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18rem;
+  color: var(--base-500);
+  border: 1px solid var(--base-500);
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* ── Marquees wrapper ── */
+.spotlight .marquees {
+  position: relative;
+  width: 100%;
+  /* height on desktop = 4 rows × 250px + gaps */
+  height: calc(4 * 250px + 3 * 1rem + 6rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem 0;
+}
+
+/* ── Each row ── */
+.spotlight .marquee-container {
+  position: relative;
+  width: 125%;          /* wider than viewport so parallax has room */
+  height: 250px;
+  flex-shrink: 0;
+}
+
+.spotlight .marquee {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, 0);
+  display: flex;
+  gap: 1em;
+  will-change: transform;
+}
+
+/* Even rows start offset to the left */
+.spotlight #marquee-1 .marquee,
+.spotlight #marquee-3 .marquee {
+  transform: translate3d(-15%, -50%, 0);
+}
+
+/* ── Items ── */
+.spotlight .marquee-img-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  min-width: 0;       /* prevent flex blowout */
+}
+
+.spotlight .marquee-img-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Text items ── */
+.spotlight .marquee-img-item.marquee-text-item {
+  flex: 1.2;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.spotlight .marquee-img-item h1 {
+  text-transform: uppercase;
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4.5vw, 5rem);
+  line-height: 0.9;
+  letter-spacing: -0.1rem;
+  color: var(--base-100);
+  white-space: nowrap;
+}
+
+.spotlight .marquee-img-item h1 .char {
+  will-change: font-weight;
+  display: inline-block;
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE — tablet  (≤ 1000px)
+────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .spotlight .marquees {
+    height: auto;
+    padding: 2rem 0;
+    gap: 0.75rem;
+  }
+
+  .spotlight .marquee-container {
+    width: 200%;       /* more overflow room on tablet */
+    height: 180px;
+  }
+
+  .spotlight .marquee-img-item h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE — mobile  (≤ 600px)
+────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .spotlight .marquees {
+    padding: 1.5rem 0;
+    gap: 0.5rem;
+  }
+
+  .spotlight .marquee-container {
+    width: 280%;      /* must be wider than viewport so overflow is clipped */
+    height: 120px;
+  }
+
+  .spotlight .marquee-img-item {
+    border-radius: 0.5rem;
+  }
+
+  .spotlight .marquee-img-item h1 {
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+    letter-spacing: -0.05rem;
+  }
+
+  /* Tighten the section label on small screens */
+  .spotlight-label {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSIVE — very small  (≤ 380px)
+────────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .spotlight .marquee-container {
+    height: 100px;
+  }
+
+  .spotlight .marquee-img-item h1 {
+    font-size: 1.4rem;
+  }
+}
