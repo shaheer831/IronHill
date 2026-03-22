@@ -33,25 +33,46 @@ export function Hero({ lenis }: HeroProps) {
     return () => lenis.off("scroll", onScroll);
   }, [lenis]);
 
-  // ── Detail section scroll speed 1.2x ─────────────────────────────────────
+  // ── Detail section scroll speed 1.2x (desktop only) ─────────────────────
   useEffect(() => {
     if (!detailRef.current) return;
 
     const section = detailRef.current;
     const multiplier = 1.2;
+    let trigger: ReturnType<typeof ScrollTrigger.create> | null = null;
 
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top bottom",
-      end: "bottom top",
-      onUpdate: (self) => {
-        const offset = self.start; // px from page top where section begins
-        const scrolled = self.scroll() - offset;
-        gsap.set(section, { y: scrolled * (multiplier - 1) * -1 });
-      },
-    });
+    const mq = window.matchMedia("(max-width: 768px)");
 
-    return () => trigger.kill();
+    const setup = () => {
+      // Kill any existing trigger first
+      trigger?.kill();
+      trigger = null;
+
+      if (mq.matches) {
+        // On mobile: ensure no leftover y-transform from a prior desktop session
+        gsap.set(section, { y: 0, clearProps: "y" });
+        return;
+      }
+
+      trigger = ScrollTrigger.create({
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => {
+          const offset = self.start;
+          const scrolled = self.scroll() - offset;
+          gsap.set(section, { y: scrolled * (multiplier - 1) * -1 });
+        },
+      });
+    };
+
+    setup();
+    mq.addEventListener("change", setup);
+
+    return () => {
+      trigger?.kill();
+      mq.removeEventListener("change", setup);
+    };
   }, []);
 
   // ── Entry animations ──────────────────────────────────────────────────────

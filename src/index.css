@@ -140,6 +140,7 @@ a {
   }
   .marquee-outer {
     padding: 33px 0;
+    background: #000;
   }
 }
 
@@ -239,6 +240,7 @@ a {
   }
   .hero-detail-section {
     padding-top: 35px;
+    margin-top: 0; /* remove desktop overlap adjustment on mobile */
   }
 }
 
