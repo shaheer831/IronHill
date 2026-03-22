@@ -5,16 +5,22 @@
   overflow: hidden;
 }
 
-/* ── Section label ── */
-.spotlight-label {
-  padding: clamp(3rem, 6vw, 5rem) var(--page-padding) clamp(1.5rem, 3vw, 2.5rem);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+/* ── Services header ── */
+.services-header {
+  padding: clamp(4rem, 8vw, 7rem) var(--page-padding) clamp(2rem, 4vw, 3.5rem);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
-.spotlight-label span {
+.services-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.services-tag {
   font-family: "Space Mono", monospace;
   font-size: 0.65rem;
   text-transform: uppercase;
@@ -24,6 +30,81 @@
   padding: 4px 10px;
   border-radius: 4px;
   display: inline-block;
+}
+
+.services-count {
+  font-family: "Space Mono", monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12rem;
+  color: var(--base-300);
+}
+
+.services-header-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+}
+
+.services-title {
+  font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.1rem;
+  text-transform: uppercase;
+  color: var(--base-100);
+}
+
+.services-description {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--base-200);
+  font-weight: 300;
+  padding-top: 0.5rem;
+  max-width: 520px;
+}
+
+/* ── Services footer ── */
+.services-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: clamp(2rem, 4vw, 3rem) var(--page-padding);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.services-footer-note {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(0.85rem, 1.2vw, 0.975rem);
+  line-height: 1.65;
+  color: var(--base-300);
+  font-weight: 300;
+  max-width: 480px;
+}
+
+.services-cta {
+  font-family: "Space Mono", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: var(--base-100);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.65rem 1.4rem;
+  border-radius: 4px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+
+.services-cta:hover {
+  border-color: var(--base-500);
+  color: var(--base-500);
 }
 
 /* ── Marquees wrapper ── */
@@ -111,6 +192,15 @@
    RESPONSIVE — tablet  (≤ 1000px)
 ────────────────────────────────────────────── */
 @media (max-width: 1000px) {
+  .services-header-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .services-description {
+    max-width: 100%;
+  }
+
   .spotlight .marquees {
     height: auto;
     padding: 2rem 0;
@@ -118,7 +208,7 @@
   }
 
   .spotlight .marquee-container {
-    width: 200%;       /* more overflow room on tablet */
+    width: 200%;
     height: 180px;
   }
 
@@ -131,13 +221,30 @@
    RESPONSIVE — mobile  (≤ 600px)
 ────────────────────────────────────────────── */
 @media (max-width: 600px) {
+  .services-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .services-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .services-cta {
+    width: 100%;
+    text-align: center;
+  }
+
   .spotlight .marquees {
     padding: 1.5rem 0;
     gap: 0.5rem;
   }
 
   .spotlight .marquee-container {
-    width: 280%;      /* must be wider than viewport so overflow is clipped */
+    width: 280%;
     height: 120px;
   }
 
@@ -148,12 +255,6 @@
   .spotlight .marquee-img-item h1 {
     font-size: clamp(1.5rem, 7vw, 2.2rem);
     letter-spacing: -0.05rem;
-  }
-
-  /* Tighten the section label on small screens */
-  .spotlight-label {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
   }
 }
 
