@@ -5,7 +5,7 @@ import Spotlight from "../components/Spotlight/Spotlight";
 import Testimonials from "../components/Testimonials/Testimonials";
 import VirtualTourSection from "../components/VirtualTourSection/VirtualTourSection";
 import FAQ from "../components/FAQ/FAQ";
-import CTABanner from "../components/CTABanner/CTABanner";
+// import CTABanner from "../components/CTABanner/CTABanner";
 
 interface HomePageProps {
   lenis: Lenis | null;
@@ -19,7 +19,7 @@ export function HomePage({ lenis }: HomePageProps) {
       <Testimonials />
       <VirtualTourSection />
       <FAQ />
-      <CTABanner />
+      {/* <CTABanner /> */}
       <Footer />
     </>
   );
