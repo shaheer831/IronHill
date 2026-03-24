@@ -130,7 +130,7 @@ const Spotlight: React.FC = () => {
               <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=900&auto=format&fit=crop&q=80" alt="Steel structure workers" />
             </div>
             <div className="marquee-img-item">
-              <img src="https://images.unsplash.com/photo-1590644365607-b1e3ec5a9f38?w=900&auto=format&fit=crop&q=80" alt="Construction crane" />
+              <img src="https://images.unsplash.com/photo-1721595279388-085728677a50?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Construction crane" />
             </div>
           </div>
         </div>
