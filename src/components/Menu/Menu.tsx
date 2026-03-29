@@ -390,9 +390,12 @@ const Menu = ({ lenis }: MenuProps) => {
     <>
       {/* Nav bar */}
       <nav
-        className="fixed top-0 left-0 w-full flex justify-end items-center z-[100]"
+        className="fixed top-0 left-0 w-full flex justify-between items-center z-[100]"
         style={{ maxWidth: "100vw", padding: "9px 12px" }}
       >
+        <span style={{
+          fontSize:"24px"
+        }}>Logo.</span>
         <div ref={navToggleRef} onClick={toggleMenu} className="nav-toggle-wrapper" style={{ background: "#2641aa" }}>
           <p ref={openLabelRef}  className="open-label"  style={{ color: "white" }}>menu</p>
           <p ref={closeLabelRef} className="close-label" style={{ color: "white" }}>Close</p>
